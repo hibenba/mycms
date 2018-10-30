@@ -286,3 +286,19 @@ function shtmlspecialchars($string)
     }
     return $string;
 }
+
+//删除一个目录下所有的文件
+function removeDir($dirname, $rmdir = false)
+{
+    foreach (glob($dirname . DIRECTORY_SEPARATOR . '*') as $file) {
+        echo $file;
+        if (is_dir($file)) {
+            RemoveDir($file);
+        } else {
+            unlink($file);
+        }
+    }
+    if ($rmdir) {
+        rmdir($dirname);
+    }
+}

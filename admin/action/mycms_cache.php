@@ -11,34 +11,11 @@ if (submitcheck('cachesubmit') || !empty($_MGET['update'])) {
     $_MGET['update'] = empty($_MGET['update']) ? '' : $_MGET['update'];
     if (in_array('tpl', $_POST['cache']) || $_MGET['update'] == 'tpl') {
         //模板缓存
-        $cachedir = M_ROOT . 'data/cache/tpl/' . ADMIN_DIR . '/tpl';
-        $filearr = sreaddir($cachedir);
-        foreach ($filearr as $file) {
-            @unlink($cachedir . '/' . $file);
-        }
-        $cachedir = M_ROOT . 'data/cache/tpl';
-        $filearr = sreaddir($cachedir);
-        foreach ($filearr as $file) {
-            @unlink($cachedir . '/' . $file);
-        }
-        $cachedir = M_ROOT . 'data/cache/tpl/' . $_MCONFIG['template'];
-        $filearr = sreaddir($cachedir);
-        foreach ($filearr as $file) {
-            @unlink($cachedir . '/' . $file);
-        }
-        $cachedir = M_ROOT . 'data/cache/tpl/' . $_MCONFIG['template'] . '/wap';//手机模板
-        $filearr = sreaddir($cachedir);
-        foreach ($filearr as $file) {
-            @unlink($cachedir . '/' . $file);
-        }
+        removeDir(M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'tpl');
     }
     if (in_array('blocks', $_POST['cache']) || $_MGET['update'] == 'blocks') {
         //调用数据模板缓存
-        $cachedir = M_ROOT . 'data/cache/block';
-        $filearr = sreaddir($cachedir);
-        foreach ($filearr as $file) {
-            @unlink($cachedir . '/' . $file);
-        }
+        removeDir(M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'block');
     }
     include(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'cache.func.php');
     if (in_array('categorys', $_POST['cache']) || $_MGET['update'] == 'categorys') {
