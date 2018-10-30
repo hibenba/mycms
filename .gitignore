@@ -1,4 +1,5 @@
 .idea
+.gitignore
 /data/cache/*
 /data/log/*
 /phpMyAdmin/
