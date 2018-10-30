@@ -40,7 +40,7 @@ if (submitcheck('cachesubmit') || !empty($_MGET['update'])) {
             @unlink($cachedir . '/' . $file);
         }
     }
-    include(SOUREC_DIR . DIRECTORY_SEPARATOR . 'function' . DIRECTORY_SEPARATOR . 'cache.func.php');
+    include(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'cache.func.php');
     if (in_array('categorys', $_POST['cache']) || $_MGET['update'] == 'categorys') {
         //分类缓存
         updatecategorycache();
