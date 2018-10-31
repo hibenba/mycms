@@ -11,7 +11,7 @@ if (submitcheck('htmltimesubmit')) {
     //$_MGLOBAL['db']->updatetable('settings', array('value' => empty($_POST['htmltime']) ? $_MGLOBAL['timestamp'] : sstrtotime($_POST['htmltime'])), array('variable' => 'htmltime'));
     $htmltime = empty($_POST['htmltime']) ? $_MGLOBAL['timestamp'] : sstrtotime($_POST['htmltime']);
     $_MGLOBAL['db']->query('REPLACE INTO ' . tname('settings') . ' (`variable`, `value`) VALUES (\'htmltime\',' . $htmltime . ')');
-    include(M_ROOT . 'function/cache.func.php');
+    include(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'cache.func.php');
     updatesettingcache();
     showmessage(1, '已经成功设置全站HTML立即刷新操作', $theurl);
 }
