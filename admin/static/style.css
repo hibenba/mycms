@@ -1444,13 +1444,13 @@ h2.set {
 .list-table thead tr{display: none;}
 .operate{display:block!important}
 .title{width:100%}
-.author,.categories,.tags,.comments,.date,.img_article,.img_user,.img_size,.tagstate,.topic-zt,.topic-view,.topic-note,.topic-html,.topic-ptime,.topic-uptime,.comment_ip,.comment_title,.comment_hot,.comment_date,.catnote,.cathtmlpath,.catprehtml,.catdisplayorder{ display:none!important}
+.author,.categories,.tags,.comments,.date,.img_article,.img_user,.img_size,.tagstate,.topic-zt,.topic-view,.topic-note,.topic-html,.topic-ptime,.topic-uptime,.comment_ip,.comment_title,.comment_hot,.comment_date,.catnote,.cathtmlpath,.catprehtml,.catdisplayorder,.cache_dir,.cron_available,.last_time,.next_time,.table-records,.table-size,.table-overhead,.date,.link_logo,.link_description{ display:none!important}
 .move_cat{float:none}
 .editor{margin-right:0}
 .editor_left,.editor_right{float:none}
 .move_cat span{ display:block}
 .right{width:100%;float:none!important}
-#settingsform p .theinput{width:60%}
+#settingsform p .theinput{width:58%}
 #settingsform p span{ display:none}
 #settingsform p strong{width:30%}
 .catmanage{width:78%;left:1%;top:1%;}
