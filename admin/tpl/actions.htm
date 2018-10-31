@@ -1,0 +1,27 @@
+<!--{eval include template(TPLDIR.'header.htm',1);}-->
+<div class="wrap">
+    <table class="list-table">
+      <thead>
+        <tr>
+          <th scope="col" id="action"><i class="fa cloud-down"></i> action</th>
+          <th scope="col" id="action-note"><i class="fa note-icon"></i> 说明</th>
+          <th scope="col" id="action-type"><i class="fa html-icon"></i> 类型</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <!--{loop $catarr $action}-->
+        <tr class="theaction">
+          <td class="action">$action[name]<div class="operate"><a href="javascript:actionmanager($action[id],'edit');"><i class="fa edit-pen"></i> 编辑</a><!--{if $action[modify]!=1}--> | <a href="$theurl-delete-$action[id]" onclick="return confirm('您将删除这个action，单击“确定”继续。单击“取消”停止。')" style="color:red"><i class="fa trash"></i> 删除</a><!--{/if}--></div></td>          
+          <td class="actiontnote">$action[description]</td>
+          <td class="cathtmlpath"><!--{if $action[modify]==1}-->系统<!--{else}-->用户<!--{/if}--></td>
+          
+        </tr>
+        <!--{/loop}-->
+      </tbody>
+    </table>
+
+    <div id="showdiv"></div>
+
+</div>
+<!--{eval include template(TPLDIR.'footer.htm',1);}-->

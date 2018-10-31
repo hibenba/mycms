@@ -16,7 +16,7 @@ if (empty($_MGET['thisaction'])) {
     exit();
 } else {
     $page = empty($_MGET['page']) ? 0 : intval($_MGET['page']);
-    $url = '/main.php?action-' . $_MGET['thisaction'];
+    $url = '/main.php?action-' . $_MGET['thisaction'] . '-';
     switch ($_MGET['thisaction']) {
         case 'index':
             $url = '/main.php?php-1';

@@ -1,0 +1,4 @@
+[30-Oct-2018 17:32:30 PRC] PHP Notice:  Undefined offset: 3 in /home/wwwroot/neter8.com/source/function/common.func.php on line 438
+[30-Oct-2018 17:32:30 PRC] PHP Notice:  Undefined offset: 3 in /home/wwwroot/neter8.com/source/function/common.func.php on line 438
+[30-Oct-2018 17:33:08 PRC] PHP Notice:  Undefined offset: 3 in /home/wwwroot/neter8.com/source/function/common.func.php on line 438
+[30-Oct-2018 17:33:08 PRC] PHP Notice:  Undefined offset: 3 in /home/wwwroot/neter8.com/source/function/common.func.php on line 438
