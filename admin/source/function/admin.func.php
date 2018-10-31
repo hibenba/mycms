@@ -293,7 +293,7 @@ function removeDir($dirname, $rmdir = false)
     foreach (glob($dirname . DIRECTORY_SEPARATOR . '*') as $file) {
         echo $file;
         if (is_dir($file)) {
-            RemoveDir($file);
+            removeDir($file);
         } else {
             unlink($file);
         }

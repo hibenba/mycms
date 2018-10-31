@@ -11,11 +11,11 @@ if (submitcheck('cachesubmit') || !empty($_MGET['update'])) {
     $_MGET['update'] = empty($_MGET['update']) ? '' : $_MGET['update'];
     if (in_array('tpl', $_POST['cache']) || $_MGET['update'] == 'tpl') {
         //模板缓存
-        removeDir(M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'tpl');
+        removeDir(M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'tpl', true);
     }
     if (in_array('blocks', $_POST['cache']) || $_MGET['update'] == 'blocks') {
         //调用数据模板缓存
-        removeDir(M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'block');
+        removeDir(M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'block', true);
     }
     include(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'cache.func.php');
     if (in_array('categorys', $_POST['cache']) || $_MGET['update'] == 'categorys') {
