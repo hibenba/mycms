@@ -1,27 +1,49 @@
 <!--{eval include template(TPLDIR.'header.htm',1);}-->
-<div class="wrap">
-    <table class="list-table">
+<style type="text/css">
+.actions-name,#actions-name{text-align:center;width:10%}
+@media(max-width:880px){
+.actions-modify,.actions-url_rewrite{display:none}.actions-name{width:25%}
+.$action-edit span{display:none}
+.select,.theinput{width:60%}
+}
+</style><div class="wrap">
+<!--{if empty($h2)}-->
+<table class="list-table">
       <thead>
         <tr>
-          <th scope="col" id="action"><i class="fa cloud-down"></i> action</th>
-          <th scope="col" id="action-note"><i class="fa note-icon"></i> 说明</th>
-          <th scope="col" id="action-type"><i class="fa html-icon"></i> 类型</th>
-
+          <th scope="col" id="$action-name"><i class="fa cloud-down"></i> action</th>
+          <th scope="col" id="$action-description"><i class="fa note-icon"></i> 说明</th>
+          <th scope="col" id="$action-modify"><i class="fa html-icon"></i> 类型</th>
+          <th scope="col" id="$action-cachetime"><i class="fa date-ico"></i> 缓存时间</th>
+          <th scope="col" id="$action-url_model"><i class="fa key"></i> 链接模式</th>
+		  <th scope="col" id="$action-url_rewrite"><i class="fa prehtml-icon"></i> 链接重写</th>
         </tr>
       </thead>
       <tbody>
-        <!--{loop $catarr $action}-->
-        <tr class="theaction">
-          <td class="action">$action[name]<div class="operate"><a href="javascript:actionmanager($action[id],'edit');"><i class="fa edit-pen"></i> 编辑</a><!--{if $action[modify]!=1}--> | <a href="$theurl-delete-$action[id]" onclick="return confirm('您将删除这个action，单击“确定”继续。单击“取消”停止。')" style="color:red"><i class="fa trash"></i> 删除</a><!--{/if}--></div></td>          
-          <td class="actiontnote">$action[description]</td>
-          <td class="cathtmlpath"><!--{if $action[modify]==1}-->系统<!--{else}-->用户<!--{/if}--></td>
-          
+        <!--{loop $catarr $theaction}-->
+        <tr class="theaction" id="$action-$theaction[id]">
+          <td class="$action-name">$theaction[name]</td>          
+          <td class="$action-description">$theaction[description]<div class="operate"><a href="$theurl-edit-$theaction[id]"><i class="fa edit-pen"></i> 编辑</a><!--{if $theaction[modify]!=1}--> | <a href="$theurl-delete-$theaction[id]" onclick="return confirm('您将删除这个action，单击“确定”继续。单击“取消”停止。')" style="color:red"><i class="fa trash"></i> 删除</a><!--{/if}--></div></td>           
+          <td class="$action-modify"><!--{if $theaction[modify]==1}-->系统<!--{else}-->用户<!--{/if}--></td>
+          <td class="$action-cachetime"> $theaction[cachetime]</td>
+          <td class="$action-url_model"> <!--{if empty($url_model[$theaction[url_model]])}-->参数错误<!--{else}-->$url_model[$theaction[url_model]]<!--{/if}--></td>
+		  <td class="$action-url_rewrite"> $theaction[url_rewrite]</td>
         </tr>
         <!--{/loop}-->
       </tbody>
     </table>
-
-    <div id="showdiv"></div>
-
+	<script>$(function(){$('#thetitle').append('<a href="$theurl-edit-add" class="add">添加模板</a>');$(".theaction").mouseover(function(){$($(this)).find('.operate').show();});
+$(".theaction").mouseout(function(){$($(this)).find('.operate').hide();})})</script>
+<!--{else}-->
+<div class="$action-edit">
+$h2
+<form method="post" action="$theurl" id="settingsform" name="thevalueform" enctype="multipart/form-data"><input type="hidden" name="formhash" value="$formhash">
+<p><strong>模块名字：</strong> <input name="name" type="text" autofocus="autofocus" class="theinput" placeholder="英文/拼音" value="$sqlarr[name]" size="30"<!--{if $sqlarr[modify]==1}--> readonly="readonly"<!--{/if}-->> <span>请输入模块的名字，可以英文或者拼音，不能使用汉字 ，最少2个字符，不能重复已有的模块名字！</span></p>
+<p><strong>URL模式：</strong> <select name="url_model" class="select"><option value="0"<!--{if $sqlarr[url_model]==0}--> selected="selected"<!--{/if}-->>动态</option><option value="1"<!--{if $sqlarr[url_model]==1}--> selected="selected"<!--{/if}-->>伪静态</option><option value="2"<!--{if $sqlarr[url_model]==2}--> selected="selected"<!--{/if}-->>静态</option></select> 
+<span>选择一个链接模式！</span></p>
+<p><strong>缓存时间：</strong> <input name="cachetime" type="text" size="30" class="theinput" value="$sqlarr[cachetime]"> <span>设置为0不缓存，以秒为单位，如300秒为5分钟！</span></p>
+<p><strong>URL重写：</strong> <input name="url_rewrite" type="text" size="30" class="theinput" value="$sqlarr[url_rewrite]"> <span>设置URL重新格式化后的样式，当连接模式为动态时设置无效！</span></p>
+<p><strong>模块说明：</strong> <input name="description" type="text" size="30" class="theinput" value="$sqlarr[description]"> <span>介绍此模块的功能！</span></p><input type="hidden" name="id" value="$sqlarr[id]"><input type="submit" name="subactions" class="setsubmint" style="margin:20px 0" value="提交保存"></form>
 </div>
+<!--{/if}--></div>
 <!--{eval include template(TPLDIR.'footer.htm',1);}-->
