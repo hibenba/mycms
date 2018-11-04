@@ -5,8 +5,8 @@
  */
 define('IN_MYCMS', TRUE);
 define('M_ROOT', substr(dirname(__FILE__), 0, -6));//网站根目录
-define('SOUREC_DIR', M_ROOT  . 'source' . DIRECTORY_SEPARATOR);//定义主要功能源码目录
-define('DATA_DIR', M_ROOT  . 'data' . DIRECTORY_SEPARATOR);//定义数据目录
+define('SOUREC_DIR', M_ROOT . 'source' . DIRECTORY_SEPARATOR);//定义主要功能源码目录
+define('DATA_DIR', M_ROOT . 'data' . DIRECTORY_SEPARATOR);//定义数据目录
 define('M_VER', '2.2');
 define('M_RELEASE', '20180920');
 define('M_DEBUG', true);//是否调试模式
@@ -17,7 +17,7 @@ if (M_DEBUG) {
     @error_reporting(E_ALL ^ E_NOTICE);
 }
 $_MBLOCK = $_MCACHE = array();
-include_once(SOUREC_DIR. 'function' . DIRECTORY_SEPARATOR . 'common.func.php');
+include_once(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'common.func.php');
 //载入基本设置文件
 if (!@include(M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config.cache.php')) {
     errorlog('log', '系统配置错误，未成功载入配置文件！', true);
@@ -44,7 +44,7 @@ function connectMysql()
 {
     global $_MCONFIG, $_MGLOBAL;
     if (empty($_MGLOBAL['db'])) {
-        include(SOUREC_DIR. 'class' . DIRECTORY_SEPARATOR . 'mysqli.class.php');
+        include(SOUREC_DIR . 'class' . DIRECTORY_SEPARATOR . 'mysqli.class.php');
         $_MGLOBAL['db'] = new MyCMS_DataBase($_MCONFIG['dbhost'], $_MCONFIG['dbuser'], $_MCONFIG['dbpw'], $_MCONFIG['dbname'], $_MCONFIG['port'], $_MCONFIG['dbcharset']);
     }
 }

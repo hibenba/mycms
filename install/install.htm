@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>MyCMS 安装向导</title>
+<style type="text/css">
+*{ word-wrap:break-word}
+body{margin:20px auto;width:30%;border: 1px solid #B5CFD9;padding:10px;min-width:340px;max-width:600px}
+.header{
+	font-size: 25px;
+	line-height: 100px;
+	text-align: center;border-bottom: 1px solid #B5CFD9;
+}
+.main{padding:10px;}
+.footer{
+	text-align: center;
+	border-top: 1px solid #B5CFD9;
+	line-height: 35px;
+}
+.setsubmint {
+    background: #0085ba;
+    box-shadow: 0 1px 0 #006799;
+    color: #fff;
+    text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 26px;
+    padding: 0 20px 1px;
+    cursor: pointer;
+    border: 1px solid #0073aa;
+    border-color: #0073aa #006799 #006799;
+    border-radius: 3px;
+    box-sizing: border-box;width:100%
+}
+.theinput {
+	border: 1px solid #ddd;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+	color: #32373c;
+	outline: 0;
+	transition: 50ms border-color ease-in-out;
+	padding: 3px;
+	height: 22px;
+	width: 50%;
+}
+.installform p{
+	margin-top: 20px;
+}
+.installform strong{
+	width: 40%;
+	display: inline-block;
+	text-align: right;
+}
+h2{
+	font-size: 20px;
+	line-height: 200%;
+}
+.errmes{background: #FC0;border: 1px solid #F00;padding:10px;}
+h3{
+	font-size: 15px;
+	color: #F00;
+	line-height: 200%;
+}
+
+</style>
+</head>
+<body>
+<div class="header">MyCMS安装设置</div>
+<div class="main">
+<!--{if $errmes}--><div class="errmes"><h3>请处理以下问题后重试：</h3><ol>$errmes</ol></div><!--{/if}-->
+<form action="" method="post" class="installform">
+<h2>MySQL数据库设置</h2>
+<p><strong>主机：</strong><input name="dbhost" type="text" placeholder="输入数据库服务器地址" class="theinput" size="30" value="127.0.0.1"></p>
+<p><strong>用户名：</strong><input name="dbuser" type="text" placeholder="输入MySQL数据库用户名" class="theinput" size="30" value=""></p>
+<p><strong>密码：</strong><input name="dbpw" type="text" placeholder="输入MySQL数据库密码" class="theinput" size="30" value=""></p>
+<p><strong>数据库名：</strong><input name="dbname" type="text" placeholder="输入MySQL数据库名称" class="theinput" size="30" value=""></p>
+<p><strong>数据库端口：</strong><input name="port" type="text" placeholder="默认为:3306" class="theinput" size="30" value="3306"></p>
+<p><strong>表前缀：</strong><input name="tablepre" type="text" placeholder="输入表前缀" class="theinput" size="30" value="mycms_"></p>
+<h2>网站设置</h2>
+<p><strong>网站域名：</strong><input name="domain" type="text" placeholder="输入域名地址，未尾不要加/" class="theinput" size="30" value=""></p>
+<p><strong>网站名字：</strong><input name="sitename" type="text" placeholder="输入网站名字" class="theinput" size="30" value=""></p>
+
+<h2>管理员设置</h2>
+<p><strong>管理员：</strong><input name="admin" type="text" placeholder="输入管理员用户名" class="theinput" size="30" value=""></p>
+<p><strong>密码：</strong><input name="password" type="text" placeholder="输入管理员密码" class="theinput" size="30" value=""></p>
+<p><strong>邮箱：</strong><input name="email" type="text" placeholder="输入管理员邮箱" class="theinput" size="30" value=""></p>
+<p><input name="" type="submit" class="setsubmint" value="提交" /></p>
+</form>
+
+</div><div class="footer">Copyright © 2009 - 2019 MyCMS {M_VER}({M_RELEASE}) Allright reserved.</div></body></html>
