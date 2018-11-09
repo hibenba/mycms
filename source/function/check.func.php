@@ -36,8 +36,9 @@ function getpw($pw, $user)
 {
     return md5($pw . '|' . $user);
 }
+
 //对提交的表单进行安全检测
-function submitcheck($var, $checksec = 0)
+function submitcheck($var)
 {
     if (!empty($_POST[$var]) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         if ((empty($_SERVER['HTTP_REFERER']) || preg_replace("/https?:\/\/([^\:\/]+).*/i", "\\1", $_SERVER['HTTP_REFERER']) == preg_replace("/([^\:]+).*/", "\\1", $_SERVER['HTTP_HOST'])) && $_POST['formhash'] == formhash()) {

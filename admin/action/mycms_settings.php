@@ -16,6 +16,7 @@ if (submitcheck('settingsubmit')) {
         }
         $replacearr[] = '(\'' . $var . '\', \'' . $value . '\')';
     }
+    $replacearr[] = '(\'formhash\', \'' . formhash(1) . '\')';
     $_MGLOBAL['db']->query('REPLACE INTO ' . tname('settings') . ' (variable, value) VALUES ' . implode(',', $replacearr));
     //更新设置cache
     include(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'cache.func.php');

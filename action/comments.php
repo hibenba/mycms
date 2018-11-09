@@ -6,7 +6,20 @@
 if (!defined('IN_MYCMS')) {
     exit('Access Denied');
 }
-include_once(M_ROOT . 'function' . DIRECTORY_SEPARATOR . 'check.func.php');
+if (!empty($_MGET['getcomment'])) {
+    //获取评论框
+    $formhash = formhash();
+    if (empty($_MCONFIG['noseccode'])) {
+        echo 'document.writeln("<p class=\"seccode_p\"><strong>验证码:</strong> <input size=\"30\" type=\"text\" value=\"\" onblur=\"chickseccode(this.value)\" id=\"sec_input\" name=\"seccode\"/> <span id=\"seccode\" class=\"chicksec\"></span> <img src=\"' . geturl('action/validate') . '\" id=\"validate\" title=\"点击刷新\" onClick=\"this.src=\'' . geturl('action/validate') . '-\'+Math.random();\"/></p>");';
+    }
+    echo 'document.writeln("<input type=\"hidden\" name=\"formhash\" value=\"' . $formhash . '\" />");';
+    echo 'document.writeln("<script>function chickseccode(seccode){var seccodeHTML=document.getElementById(\"seccode\");if(seccode==\'\'){seccodeHTML.innerHTML=\'<i class=\"error\"></i>\'}else{ajax({method:\'POST\',url:\'' . geturl('action/ajax') . '\',data:{formhash:\'' . $formhash . '\',seccode:seccode,seccodechick:true},success:function(e){seccodeHTML.innerHTML=e}})}}</script>");';
+    exit;
+}
+connectMysql();
+include_once(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'check.func.php');
+include_once(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'cookies.func.php');
+getcookie();
 if (submitcheck('commentssubmit') && !empty($_MGET['post'])) {
     //发表评论
     if ($_MGLOBAL['uid'] > 0 && !empty($_MGLOBAL['username'])) {

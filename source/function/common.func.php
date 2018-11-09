@@ -504,11 +504,11 @@ function sarray_unique($array)
 }
 
 //生成form防伪码，每个用户和区域时间不同，生成不同的码
-function formhash()
+function formhash($renew = 0)
 {
     global $_MGLOBAL, $_MCONFIG;
-    if (empty($_MGLOBAL['formhash'])) {
-        $_MGLOBAL['formhash'] = smd5(substr($_MGLOBAL['timestamp'], 0, -5) . '|' . $_MGLOBAL['uid'] . '|' . md5($_MCONFIG['sitekey']) . '|' . MURL);
+    if (empty($_MCONFIG['formhash']) || $renew) {
+        $_MCONFIG['formhash'] = smd5(substr($_MGLOBAL['timestamp'], 0, -5) . '|' . $_MGLOBAL['uid'] . '|' . md5($_MCONFIG['sitekey']) . '|' . MURL);
     }
-    return $_MGLOBAL['formhash'];
+    return $_MCONFIG['formhash'];
 }

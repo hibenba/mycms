@@ -1,11 +1,7 @@
+function show(str){document.writeln(str);}
 var Cookieuser='MyCms_user';
 function thismodified(maketime,action,id,page){document.writeln('<script type="text/javascript" src="/main.php?action-html-maketime-'+maketime+'-thisaction-'+action+'-id-'+id+'-page-'+page+'"></script>')}
 var site_search='<form action="/main.php?action-search" method="post" target="_blank"><input type="text" name="q" placeholder="请输入关键词" autocomplete="off" class="search-input"><input type="submit" class="search-submit" value="搜索"></form>';
-function comments(theid){
-
-	
-	
-}
 function topbar(){
 username=getCookie(Cookieuser);
 if (username!=null && username!=""){document.writeln('欢迎登陆，<a href="/main.php?action-user">'+username+'</a> ，<a href="/main.php?action-user">会员中心</a> <a href="/main.php?action-login-logout-1">退出登陆</a>');}else {document.writeln('欢迎光临，请 <a href="/main.php?action-login">登陆</a> 或者 <a href="/main.php?action-register">注册</a>');}}
@@ -15,4 +11,18 @@ function ajax(opt){opt=opt||{};opt.method=opt.method.toUpperCase()||'POST';opt.u
 function reward(){document.getElementById('reward_show').style.display='block'}
 function share(){var share=document.getElementById('bdshare');if(share.style.display=='block'){share.style.display='none'}else{share.style.display='block'}}
 function bdshare(){document.writeln('<div class="bdsharebuttonbox" id="bdshare"><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more" data-cmd="more"></a></div>')}
-function show(str){document.write(str);}
+
+function comments(theid){
+if (username!=null && username!=""){
+	var loginshow = '欢迎您发表评论：'+username;
+	var textstr = 'placeholder="来盖楼吧~">';
+	var srid=1;
+}else{
+	var loginshow = '请<a href="/main.php?action-login" target="_blank">登陆</a>或者<a href="/main.php?action-register" target="_blak\">注册</a>后发表评论！';
+	var textstr = 'disabled="disabled" style="font-size:16px;line-height:75px;text-align:center">请先登陆后再发表评论！';
+	var srid=0;
+}
+show('<div id=\"comments\"><form action="/main.php?action-comments-post-' +theid+ '" method="post"><textarea name="message" ' +textstr+'</textarea><div class="comment_show"><div class="logshow">' + loginshow + '</div><input class="submit" type="submit" value="发表评论" name=\"commentssubmit\"/>');
+show('<script type="text/javascript" src="/main.php?action-comments-getcomment-'+theid+'-islogin-'+srid+'"></script>')
+show('</div></form></div>');
+}
