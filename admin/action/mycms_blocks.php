@@ -6,10 +6,10 @@
 if (!defined('IN_MYCMS') || $_MGLOBAL['member']['groupid'] != 1) {
     exit('Access Denied');
 }
-$cachefile = M_ROOT . 'data/cache/block/article.cache.php';
+$cachefile = DATA_DIR . 'cache' . DIRECTORY_SEPARATOR . 'block' . DIRECTORY_SEPARATOR . 'article.cache.php';
 if (submitcheck('makeblocksubmit')) {
     if (empty($_POST['name'])) {
-        showmessage(3,'变量名称不能为空!', '');
+        showmessage(3, '变量名称不能为空!', '');
     }
     $block = '<!--{block name="article" parameter="';
     if (!empty($_POST['catid'])) {
@@ -21,7 +21,7 @@ if (submitcheck('makeblocksubmit')) {
     if ($_POST['isid'] == 1) {
         if (empty($_POST['haveid'])) {
             if (empty($_POST['name'])) {
-                showmessage(3,'文章ID不能为空!', '');
+                showmessage(3, '文章ID不能为空!', '');
             }
         } else {
             $block .= '/id/' . $_POST['haveid'];

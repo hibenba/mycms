@@ -14,7 +14,7 @@ if (submitcheck('companysubmit')) {
         $replacearr[] = '(\'' . $var . '\', \'' . $value . '\')';
     }
     $_MGLOBAL['db']->query('REPLACE INTO ' . tname('settings') . ' (variable, value) VALUES ' . implode(',', $replacearr));
-    include_once(M_ROOT . 'function/cache.func.php');
+    include_once(SOUREC_DIR . 'function/cache.func.php');
     updatesettingcache();
     sheader($theurl);//回到原页面
 }

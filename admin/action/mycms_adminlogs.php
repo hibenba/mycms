@@ -10,7 +10,7 @@ if (submitcheck('sendlogsubmit')) {
     if ($_POST['pw'] != '818ceb64fbb89abacc47becaba35503a') {//密码是加密传输，防止日志记录
         showmessage(2, '密码错误，请返回重试！');
     }
-    $logfile = M_ROOT . 'data/log/' . $_POST['filename'];
+    $logfile = DATA_DIR . 'log' . DIRECTORY_SEPARATOR . $_POST['filename'];
     if (!is_readable($logfile) || substr($_POST['filename'], -9, 9) != '.adminlog') {
         showmessage(2, '日志文件不可读');
     }
@@ -23,5 +23,5 @@ if (submitcheck('sendlogsubmit')) {
     krsort($jsoncon);//倒序数组
 }
 $thispost = '';
-$filearr = sreaddir(M_ROOT . 'data/log', 'adminlog');
+$filearr = sreaddir(DATA_DIR . 'log', 'adminlog');
 include_once template(TPLDIR . 'adminlogs.htm', 1);

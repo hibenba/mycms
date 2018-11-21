@@ -6,13 +6,13 @@
 if (!defined('IN_MYCMS')) {
     exit('Access Denied');
 }
-include(M_ROOT . 'data/system/crons.cache.php');
+include(DATA_DIR . 'system' . DIRECTORY_SEPARATOR . 'crons.cache.php');
 //执行计划任务，并更新计划任务CACHE
 function runcron($cronid = 0)
 {
     global $_MGLOBAL;
     //锁定
-    $lockfile = M_ROOT . 'data/log/cron.lock.log';
+    $lockfile = DATA_DIR . 'log' . DIRECTORY_SEPARATOR . 'cron.lock.log';
     if (file_exists($lockfile)) {
         if ($_MGLOBAL['timestamp'] - filemtime($lockfile) < 300) {//5分钟
             return;
@@ -32,7 +32,7 @@ function runcron($cronid = 0)
     foreach ($crons as $id => $cron) {
         if ($cron['nextrun'] <= $_MGLOBAL['timestamp'] || $id == $cronid) {
             $cronids[] = $id;
-            if (!@include($cronfile = SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'crons' . $cron['filename'])) {
+            if (!@include($cronfile = SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'crons' . DIRECTORY_SEPARATOR . $cron['filename'])) {
                 errorlog('cron', json_encode(array('name' => $cron['name'], 'cronfile' => $cronfile, 'message' => '文件不存在或者语法错误')), 0);
             }
         }

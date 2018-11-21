@@ -3,7 +3,7 @@
  * [MyCMS] Ver:2.2 (C) 2018 admin.func.php Mr.Kwok
  * Created Time:2018/9/26 9:22
  */
-if (!defined('IN_MYCMS')) {
+if (!defined('IN_MYCMS') || $_MGLOBAL['member']['groupid'] != 1) {
     exit('Access Denied');
 }
 //检查是否操作创始人
@@ -24,7 +24,7 @@ function updateadmin_action()
         $_MGLOBAL['admin_action'][$action['action']] = $action;
     }
     $cachetext = '$_MGLOBAL[\'admin_action\']=json_decode(\'' . json_encode($_MGLOBAL['admin_action'], JSON_UNESCAPED_UNICODE) . '\',true);';
-    writefile(M_ROOT . 'data/system/admin_action.cache.php', $cachetext, 'php');
+    writefile(DATA_DIR .'system/admin_action.cache.php', $cachetext, 'php');
 }
 
 //调试信息,显示进程处理时间
@@ -251,7 +251,7 @@ function updatecategorycache()
         $carr[$cat['catid']] = $cat;
     }
     $cachetext = '$_MGLOBAL[\'category\']=json_decode(\'' . json_encode($carr, JSON_UNESCAPED_UNICODE) . '\',true);';
-    writefile(M_ROOT . 'data/system/category.cache.php', $cachetext, 'php');
+    writefile(DATA_DIR .'system/category.cache.php', $cachetext, 'php');
 }
 
 //获取文件名后缀

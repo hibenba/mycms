@@ -25,7 +25,7 @@ function freshcookie($itemid)
 function updateviewnum($itemid)
 {
     global $_MGLOBAL;
-    $logfile = M_ROOT . 'data/log/viewcount.log';//写入日志里后计划任务每日定时更新
+    $logfile = DATA_DIR .'log/viewcount.log';//写入日志里后计划任务每日定时更新
     if (@$fp = fopen($logfile, 'a+')) {
         fwrite($fp, $itemid . PHP_EOL);
         fclose($fp);

@@ -44,7 +44,7 @@ function getstatistics()
     if (empty($sitekey)) {
         $sitekey = mksitekey();
         $_MGLOBAL['db']->query("REPLACE INTO " . tname('settings') . " (variable, value) VALUES ('sitekey', '$sitekey')");
-        include_once(M_ROOT . 'function/cache.func.php');
+        include_once(SOUREC_DIR . 'function/cache.func.php');
         updatesettingcache();
     }
     $statistics = array(

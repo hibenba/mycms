@@ -15,7 +15,7 @@ if (submitcheck('cronsubmit')) {
         showmessage(3, '您输入的名称长度不符合要求(2~15个字符)！');
     }
     $_POST['available'] = empty($_POST['available']) ? 0 : 1;
-    if (!is_readable(M_ROOT . 'function/crons/' . $_POST['filename'])) {
+    if (!is_readable(SOUREC_DIR . 'function/crons/' . $_POST['filename'])) {
         showmessage(2, '计划任务文件不可读');
     }
     if ($_POST['weekday'] != '-1') {
@@ -94,7 +94,7 @@ if (!empty($_MGET['edit'])) {
 }
 if (!empty($_MGET['run'])) {
     //执行任务
-    include_once(M_ROOT . 'function/cron.func.php');
+    include_once(SOUREC_DIR . 'function/cron.func.php');
     runcron(intval($_MGET['run']));
     sheader($theurl);
 }
@@ -150,7 +150,7 @@ if (!empty($thevalue)) {
         }
         $minuteselect .= '</select>';
     }
-    $filearr = sreaddir(M_ROOT . 'function/crons/', 'php');
+    $filearr = sreaddir(SOUREC_DIR . 'function/crons/', 'php');
     $filename = '';
     foreach ($filearr as $value) {
         if ($thevalue['filename'] == $value) {

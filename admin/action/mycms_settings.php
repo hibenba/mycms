@@ -28,7 +28,7 @@ $query = $_MGLOBAL['db']->query('SELECT * FROM ' . tname('settings'));
 while ($value = $_MGLOBAL['db']->fetch_array($query)) {
     $thevalue[$value['variable']] = $value['value'];
 }
-$templatearr = sreaddir(M_ROOT . 'data/templates');
+$templatearr = sreaddir(DATA_DIR .'templates');
 $attachmentdirtypearr = array(
     'all' => '不归类',
     'year' => '按年归类',

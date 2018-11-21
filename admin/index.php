@@ -20,7 +20,6 @@ include_once(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'check.func.php');
 include_once(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'list.func.php');//列表页处理函数
 include_once(SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'cookies.func.php');//COOKIES处理
 getcookie();
-include_once(ADMIN_SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'admin.func.php');
 $parsegetvar = empty($_SERVER['QUERY_STRING']) ? '' : maddslashes(strfilter($_SERVER['QUERY_STRING']));
 if (!empty($parsegetvar)) {
     $_MGET = parseparameter(str_replace('-', '/', $parsegetvar));
@@ -96,6 +95,7 @@ if (empty($_MGLOBAL['uid']) || empty($_MGLOBAL['member']['password'])) {
     include_once template(TPLDIR . 'login.htm', 1);
     exit();
 }
+include_once(ADMIN_SOUREC_DIR . 'function' . DIRECTORY_SEPARATOR . 'admin.func.php');
 $session = $_MGLOBAL['db']->fetch_first("SELECT `uid`,`ip`,`dateline`,`errorcount` FROM " . tname('adminsession') . " WHERE uid=" . $_MGLOBAL['uid']);
 //检查是否是创始人或者2小时未操作将强制退出
 if (($_MGLOBAL['timestamp'] - $session['dateline']) < 7200 && ckfounder($_MGLOBAL['uid']) != false) {

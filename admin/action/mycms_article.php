@@ -139,7 +139,7 @@ if (submitcheck('setsubmit')) {
         $setarticlenum = intval($_POST['setarticlenum']);
     }
     $_MGLOBAL['db']->query("REPLACE INTO " . tname('settings') . " (variable, value) VALUES ('setarticlenum', '$setarticlenum')");
-    include_once(M_ROOT . 'function/cache.func.php');
+    include_once(SOUREC_DIR . 'function/cache.func.php');
     updatesettingcache();//更新设置缓存
     sheader($_SERVER['REQUEST_URI']);
 }

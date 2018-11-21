@@ -21,14 +21,14 @@ if (submitcheck('baidusendurlsubmit')) {
 if (!empty($_MGET['deletelog'])) {
     //删除日志
     if (substr($_MGET['deletelog'], -5, 5) == 'baidu') {
-        @unlink(M_ROOT . 'data/log/' . str_replace('baidu', '.baidu', $_MGET['deletelog']));//附件删除
+        @unlink(DATA_DIR . 'log/' . str_replace('baidu', '.baidu', $_MGET['deletelog']));//附件删除
     }
     sheader($theurl);
 }
 $jsoncon = array();
 //读取推送日志
 if (submitcheck('sendlogsubmit')) {
-    $logfile = M_ROOT . 'data/log/' . $_POST['filename'];
+    $logfile = DATA_DIR . 'log' . DIRECTORY_SEPARATOR . $_POST['filename'];
     if (!is_readable($logfile) || substr($_POST['filename'], -6, 6) != '.baidu') {
         showmessage(2, '日志文件不可读');
     }
@@ -43,7 +43,7 @@ if (submitcheck('sendlogsubmit')) {
 }
 $filename = '';
 if (!empty($_MCONFIG['baidusendurl'])) {
-    $filearr = sreaddir(M_ROOT . 'data/log', 'baidu');
+    $filearr = sreaddir(DATA_DIR . 'log', 'baidu');
     foreach ($filearr as $value) {
         $filename .= '<option value="' . $value . '">' . str_replace(array('.baidu', ' posturl_'), '', $value) . '</option>';
     }
@@ -53,7 +53,7 @@ $baidusitemap = MURL . '/main.php?action-sitemap';
 $baidupattern = MURL . '/(.*) ' . WAPURL . '/${1}';
 $sm_pattern = MURL . '/data/sitemap/sm_pattern.xml';
 $sitemapfile = '';
-$filearr = sreaddir(M_ROOT . 'data/sitemap', 'xml');
+$filearr = sreaddir(DATA_DIR . 'sitemap', 'xml');
 if ($filearr) {
     foreach ($filearr as $value) {
         $sitemapfile .= PHP_EOL . MURL . '/data/sitemap/' . $value;

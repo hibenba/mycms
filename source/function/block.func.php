@@ -167,7 +167,7 @@ function block_article($paramarr)
     if (empty($paramarr['subjectdot'])) $paramarr['subjectdot'] = 0;
     if (empty($paramarr['messagedot'])) $paramarr['messagedot'] = 0;
     if (!empty($paramarr['showcategory'])) {
-        include(M_ROOT . 'data/system/category.cache.php');
+        include(DATA_DIR .'system/category.cache.php');
     }
     $query = $_MGLOBAL['db']->query($sqlstring);
     $theblockarr = array();

@@ -34,7 +34,7 @@ while ($table = $_MGLOBAL['db']->fetch_array($query)) {
     }
     $tablearr[$table['Name']] = $table;
 }
-$datedir = M_ROOT . 'data/Mysql_backup' . DIRECTORY_SEPARATOR . sgmdate($_MGLOBAL['timestamp'], "Ymd") . DIRECTORY_SEPARATOR;
+$datedir = DATA_DIR .'Mysql_backup' . DIRECTORY_SEPARATOR . sgmdate($_MGLOBAL['timestamp'], "Ymd") . DIRECTORY_SEPARATOR;
 if (!empty($_MGET['backup'])) {
     //单个备份
     if (is_dir($datedir) || (!is_dir($datedir) && @mkdir($datedir, 0777, true))) {

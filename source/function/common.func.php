@@ -9,7 +9,7 @@ if (!defined('IN_MYCMS')) {
 //写错误日志函数
 function errorlog($type, $message, $halt = false)
 {
-    @$fp = fopen(M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . sgmdate(time(), "Ymd") . '.' . $type, 'a');
+    @$fp = fopen(DATA_DIR . 'log' . DIRECTORY_SEPARATOR . sgmdate(time(), "Ymd") . '.' . $type, 'a');
     @fwrite($fp, $message . PHP_EOL);
     @fclose($fp);
     if ($halt) {
@@ -147,12 +147,12 @@ function template($tplfilename, $fullpath = 0)
 {
     global $_MCONFIG;
     if ($fullpath == 1) {
-        $objfile = M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR . $tplfilename . '.php';
+        $objfile = DATA_DIR . 'cache' . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR . $tplfilename . '.php';
         $tplfile = M_ROOT . $tplfilename;
     } else {
         $dir = defined('IN_WAP') ? 'wap' : 'pc';//移动和PC分目录
-        $tplfile = M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $_MCONFIG['template'] . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $tplfilename . '.html.php';
-        $objfile = M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR . $_MCONFIG['template'] . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $tplfilename . '.php';
+        $tplfile = DATA_DIR . 'templates' . DIRECTORY_SEPARATOR . $_MCONFIG['template'] . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $tplfilename . '.html.php';
+        $objfile = DATA_DIR . 'cache' . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR . $_MCONFIG['template'] . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $tplfilename . '.php';
     }
     $tpldir = dirname($objfile);
     if (!is_dir($tpldir)) {
@@ -313,18 +313,37 @@ function sheader($url)
     exit();
 }
 
+//获取缓存生成目录规则
+function getcachedir($_MHTML)
+{
+    if (is_numeric($_MHTML['id'])) {
+        //数字ID处理方式
+        $subid = $_MHTML['id'] > 10000 ? intval($_MHTML['id'] / 1000) . DIRECTORY_SEPARATOR : '';
+        $cachedir = DATA_DIR . 'cache' . DIRECTORY_SEPARATOR . $_MHTML['action'] . DIRECTORY_SEPARATOR . $subid . $_MHTML['id'] . DIRECTORY_SEPARATOR;
+    } else {
+        //非数字使用截取md5值处理
+        $cachedir = DATA_DIR . 'cache' . DIRECTORY_SEPARATOR . $_MHTML['action'] . DIRECTORY_SEPARATOR . smd5($_MHTML['id']) . DIRECTORY_SEPARATOR;
+    }
+    if (defined('IN_MIP')) {
+        $tplname = 'mip';
+    } elseif (defined('IN_WAP')) {
+        $tplname = 'wap';
+    } else {
+        $tplname = 'pc';
+    }
+    if (is_dir($cachedir) || mkdir($cachedir, 0777, true)) {
+        return $cachedir . $tplname . '_' . $_MHTML['page'] . '.htm';
+    } else {
+        return DATA_DIR . 'cache' . DIRECTORY_SEPARATOR;
+    }
+}
+
 //生成缓存
 function makecache($cacle_content, $_MHTML)
 {
     global $_MCONFIG;
-    if ($_MCONFIG['allowcache'] && $_MCONFIG['actions'][$_MHTML['action']]['cachetime'] > 0) {
-        $cachedir = M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . $_MHTML['action'] . DIRECTORY_SEPARATOR;
-        if ($_MHTML['id'] > 10000) {
-            $cachedir .= intval($_MHTML['id'] / 1000) . DIRECTORY_SEPARATOR;
-        }
-        if (is_dir($cachedir) || mkdir($cachedir, 0777, true)) {
-            writefile($cachedir . $_MHTML['id'] . '_' . $_MHTML['page'] . '.htm', $cacle_content);
-        }
+    if ($_MCONFIG['allowcache'] && $_MCONFIG['actions'][$_MHTML['action']]['cachetime'] > 0 && $_MCONFIG['actions'][$_MHTML['action']]['url_model'] == 1) {
+        writefile(getcachedir($_MHTML), $cacle_content);
     }
 }
 
@@ -332,17 +351,12 @@ function makecache($cacle_content, $_MHTML)
 function getcache($_MHTML)
 {
     global $_MGLOBAL, $_MCONFIG;
-    if ($_MCONFIG['allowcache']) {
-        $cachedir = M_ROOT . 'data' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . $_MHTML['action'] . DIRECTORY_SEPARATOR;
-        if ($_MHTML['id'] > 10000) {
-            $cachedir .= intval($_MHTML['id'] / 1000) . DIRECTORY_SEPARATOR;
-        }
-        $cachefile = $cachedir . $_MHTML['id'] . '_' . $_MHTML['page'] . '.htm';
-        if (file_exists($cachefile)) {
-            if ($_MCONFIG['actions'][$_MHTML['action']]['cachetime'] > 0 && $_MGLOBAL['timestamp'] - filemtime($cachefile) < $_MCONFIG['actions'][$_MHTML['action']]['cachetime']) {
-                echo file_get_contents($cachefile);
-                exit();
-            }
+    if ($_MCONFIG['allowcache'] && $_MCONFIG['actions'][$_MHTML['action']]['url_model'] == 1) {
+        $cachefile = getcachedir($_MHTML);
+		//文件存在&&（当前时间-文件修改时间）要小于设置的缓存时间
+        if (file_exists($cachefile) && ($_MCONFIG['actions'][$_MHTML['action']]['cachetime'] > 0 && ($_MGLOBAL['timestamp'] - filemtime($cachefile)) < $_MCONFIG['actions'][$_MHTML['action']]['cachetime'])) {
+            echo file_get_contents($cachefile);
+            exit();            
         }
     }
 }

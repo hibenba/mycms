@@ -48,7 +48,7 @@ function updategroupcache()
         $_MGLOBAL['grouparr'][$group['groupid']] = $group;
     }
 
-    $cachefile = M_ROOT . 'data/system/group.cache.php';
+    $cachefile = DATA_DIR .'system/group.cache.php';
     $cachetext = '$_MGLOBAL[\'grouparr\']=' . arrayeval($_MGLOBAL['grouparr']) . ';';
     writefile($cachefile, $cachetext, 'php');
 }
@@ -67,7 +67,7 @@ function updatesettingcache()
         $_MCONFIG['actions'][$value['name']] = $value;
     }
     $cachetext = '$_MCONFIG=' . arrayeval($_MCONFIG) . ';';
-    writefile(M_ROOT . 'data/system/config.cache.php', $cachetext, 'php');
+    writefile(DATA_DIR .'system/config.cache.php', $cachetext, 'php');
 }
 
 //更新cron列表
@@ -81,7 +81,7 @@ function updatecronscache()
         $cron['minute'] = explode("\t", $cron['minute']);
         $carr[$cron['cronid']] = $cron;
     }
-    $cachefile = M_ROOT . 'data/system/crons.cache.php';
+    $cachefile = DATA_DIR .'system/crons.cache.php';
     $cachetext = '$_MGLOBAL[\'crons\']=' . arrayeval($carr) . ';';
     writefile($cachefile, $cachetext, 'php');
 }
@@ -132,7 +132,7 @@ function updatecensorcache()
         $_MGLOBAL['censor']['mod'] = '/(' . implode('|', $mod) . ')/i';
     }
     //make cache
-    $cachefile = M_ROOT . 'data/system/censor.cache.php';
+    $cachefile = DATA_DIR .'system/censor.cache.php';
     $cachetext = '$_MGLOBAL[\'censor\']=' . arrayeval($_MGLOBAL['censor']) . ';';
     writefile($cachefile, $cachetext, 'php');
 }
